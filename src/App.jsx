@@ -1,21 +1,24 @@
 import './App.css';
 
-function App() {
+const WEBSOCKET_URL = "wss://u6meuv9d2l.execute-api.us-east-2.amazonaws.com/production";
+
+const App = () => {
+
+  const connect = () => {
+    const WS = new WebSocket(WEBSOCKET_URL);
+
+    WS.onopen = () => {
+      console.log("CONNECTED.")
+    }
+
+    WS.onclose = () => {
+      console.log("DISCONNECTED.")
+    }
+  }
+
   return (
     <div className="App">
-      <header className="App-header">
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <button onClick={connect}>Testing</button>
     </div>
   );
 }
