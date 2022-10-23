@@ -1,14 +1,21 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 import "./Chat.css"
 
 export const Chat = ({ chatMessages }) => {
+    useEffect(() => {
+        const el = document.getElementById('chat');
+        if (el) {
+            el.scrollTop = el.scrollHeight;
+        }
+    }, [chatMessages]);
+
     return (
-        <div className="chatBox">
+        <div id="chat" className="chatBox">
             {chatMessages.map((chatMessage, idx) => (
-                <span key={`chatMessage-${idx}`}>
-                    {`${chatMessage}`}
-                </span>
+                <div key={`chatMessage-${idx}`}>
+                    {`${chatMessage["senderId"]}: ${chatMessage["chatMessage"]}`}
+                </div>
             ))}
         </div>
     );

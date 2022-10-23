@@ -1,6 +1,5 @@
 .chatBox {
     height: 300px;
-    width: 80%;
     border: 1px solid #ccc;
     overflow: auto;
 }

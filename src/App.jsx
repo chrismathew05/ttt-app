@@ -4,7 +4,7 @@ import { Chat } from "./components/Chat";
 
 import "./App.css";
 
-const _CONN_STATUS = ["Disconnected", "Pending...", "Connected"]
+const _CONN_STATUS = ["Disconnected - refresh to re-connect.", "Pending...", "Connected"]
 
 const App = () => {
   const [socket, setSocket] = useState(null);
@@ -29,7 +29,7 @@ const App = () => {
 
       webSocket.onmessage = event => {
         const data = JSON.parse(event.data);
-        console.log(data)
+        console.log(data);
 
         setConnectionId(data["connectionId"]);
         setAvail(data["avail"]);
@@ -47,16 +47,30 @@ const App = () => {
 
         setConnStatus(2);
       };
+
+      webSocket.onclose = () => setConnStatus(0);
     }
   }, [socket, chatMessages]);
+
+  const sendChatMessage = () => {
+    const message = prompt("Enter your message here.");
+    if (message) {
+      socket.send(JSON.stringify({ "action": "sendMessage", "message": message }));
+    }
+  }
 
   return (
     <div className="App">
       <h1>Tic-Tac-Toe</h1>
       <p>Connection Status: {_CONN_STATUS[connStatus]}</p>
       <p>{connStatus === 2 ? `User ID: ${connectionId}` : ""}</p>
-      <b>Chat:</b>
-      <Chat chatMessages={chatMessages} />
+      <div className="row">
+        <div className="col">
+          <b>Chat:</b>
+          <Chat chatMessages={chatMessages} />
+          <button onClick={sendChatMessage}>Post Message</button>
+        </div>
+      </div>
     </div>
   );
 }

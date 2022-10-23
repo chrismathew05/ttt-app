@@ -1,0 +1,18 @@
+.App {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  line-height: 1.5rem;
+}
+
+.row {
+  display: flex;
+  width: 80%;
+  align-items: flex-start;
+}
+
+.col {
+  flex: 4;
+}
