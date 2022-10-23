@@ -9,7 +9,7 @@ export const Grid = ({ chatMessages }) => {
 
     return (
         <div className="grid">
-            <div className="square" onClick={() => console.log("hello")}>X</div>
+            <div className="square active" onClick={() => console.log("hello")}>X</div>
             <div className="square" />
             <div className="square" />
             <div className="square" />
