@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 
 import { Chat } from "./components/Chat";
+import { Grid } from "./components/Grid";
 
 import "./App.css";
 
@@ -62,8 +63,13 @@ const App = () => {
   return (
     <div className="App">
       <h1>Tic-Tac-Toe</h1>
-      <p>Connection Status: {_CONN_STATUS[connStatus]}</p>
-      <p>{connStatus === 2 ? `User ID: ${connectionId}` : ""}</p>
+      <span>Connection Status: {_CONN_STATUS[connStatus]}</span>
+      <span>{connStatus === 2 ? `User ID: ${connectionId}` : ""}</span>
+      <br />
+
+      <Grid />
+
+      <br />
       <div className="row">
         <div className="col">
           <b>Chat:</b>
@@ -71,6 +77,7 @@ const App = () => {
           <button onClick={sendChatMessage}>Post Message</button>
         </div>
       </div>
+      <br />
     </div>
   );
 }
