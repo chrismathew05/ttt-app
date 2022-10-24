@@ -2,10 +2,9 @@ import { useState, useEffect } from "react";
 
 import { Chat } from "./components/Chat";
 import { Grid } from "./components/Grid";
+import { Status } from "./components/Status";
 
 import "./App.css";
-
-const _CONN_STATUS = ["Disconnected - refresh to re-connect.", "Pending...", "Connected"]
 
 const App = () => {
   const [socket, setSocket] = useState(null);
@@ -53,31 +52,19 @@ const App = () => {
     }
   }, [socket, chatMessages]);
 
-  const sendChatMessage = () => {
-    const message = prompt("Enter your message here.");
-    if (message) {
-      socket.send(JSON.stringify({ "action": "sendMessage", "message": message }));
-    }
-  }
-
   return (
     <div className="App">
       <h1>Tic-Tac-Toe</h1>
-      <span>Connection Status: {_CONN_STATUS[connStatus]}</span>
-      <span>{connStatus === 2 ? `User ID: ${connectionId}` : ""}</span>
+
+      <Status connectionId={connectionId} connStatus={connStatus} />
       <br />
 
       <Grid />
+      <br />
 
+      <Chat socket={socket} chatMessages={chatMessages} />
       <br />
-      <div className="row">
-        <div className="col">
-          <b>Chat:</b>
-          <Chat chatMessages={chatMessages} />
-          <button onClick={sendChatMessage}>Post Message</button>
-        </div>
-      </div>
-      <br />
+
     </div>
   );
 }

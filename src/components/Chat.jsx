@@ -2,7 +2,7 @@ import { useEffect } from 'react';
 
 import "./Chat.css"
 
-export const Chat = ({ chatMessages }) => {
+export const Chat = ({ socket, chatMessages }) => {
     useEffect(() => {
         const el = document.getElementById('chat');
         if (el) {
@@ -10,13 +10,26 @@ export const Chat = ({ chatMessages }) => {
         }
     }, [chatMessages]);
 
+    const sendChatMessage = () => {
+        const message = prompt("Enter your message here.");
+        if (message) {
+            socket.send(JSON.stringify({ "action": "sendMessage", "message": message }));
+        }
+    }
+
     return (
-        <div id="chat" className="chatBox">
-            {chatMessages.map((chatMessage, idx) => (
-                <div key={`chatMessage-${idx}`}>
-                    {`${chatMessage["senderId"]}: ${chatMessage["chatMessage"]}`}
+        <div className="row">
+            <div className="column">
+                <b>Chat:</b>
+                <div id="chat" className="chatBox">
+                    {chatMessages.map((chatMessage, idx) => (
+                        <div key={`chatMessage-${idx}`}>
+                            {`${chatMessage["senderId"]}: ${chatMessage["chatMessage"]}`}
+                        </div>
+                    ))}
                 </div>
-            ))}
+                <button onClick={sendChatMessage}>Post Message</button>
+            </div>
         </div>
     );
 }

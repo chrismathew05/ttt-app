@@ -5,13 +5,3 @@
   justify-content: center;
   align-items: center;
 }
-
-.row {
-  display: flex;
-  width: 90%;
-  align-items: flex-start;
-}
-
-.col {
-  flex: 4;
-}
