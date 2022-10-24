@@ -6,6 +6,8 @@ import { Status } from "./components/Status";
 
 import "./App.css";
 
+const _CONN_STATUS = ["Disconnected - refresh to re-connect.", "Pending...", "Connected"];
+
 const App = () => {
   const [socket, setSocket] = useState(null);
   const [connStatus, setConnStatus] = useState(0); // 0 = Disconnected, 1 = Pending, 2 = Connected
@@ -55,15 +57,18 @@ const App = () => {
   return (
     <div className="App">
       <h1>Tic-Tac-Toe</h1>
+      <h4>Connection Status: {_CONN_STATUS[connStatus]}</h4>
 
-      <Status connectionId={connectionId} connStatus={connStatus} />
-      <br />
+      {connStatus === 2 ? <>
+        <Status socket={socket} connectionId={connectionId} connStatus={connStatus} p1Id={p1Id} p2Id={p2Id} />
+        <br />
 
-      <Grid />
-      <br />
+        <Grid socket={socket} p1Moves={p1Moves} p2Moves={p2Moves} />
+        <br />
 
-      <Chat socket={socket} chatMessages={chatMessages} />
-      <br />
+        <Chat socket={socket} chatMessages={chatMessages} />
+        <br />
+      </> : <span />}
 
     </div>
   );
