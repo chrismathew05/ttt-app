@@ -15,7 +15,6 @@ const App = () => {
 
   // tracks state of key backend game info
   const [connectionId, setConnectionId] = useState("");
-  const [avail, setAvail] = useState([]);
   const [p1Id, setP1Id] = useState("");
   const [p2Id, setP2Id] = useState("");
   const [p1Moves, setP1Moves] = useState([]);
@@ -34,7 +33,6 @@ const App = () => {
         console.log(data);
 
         setConnectionId(data["connectionId"]);
-        setAvail(data["avail"]);
         setP1Id(data["p1Id"]);
         setP2Id(data["p2Id"]);
         setP1Moves(data["p1Moves"]);
@@ -49,9 +47,8 @@ const App = () => {
 
         setConnStatus(2);
       };
-
-      webSocket.onclose = () => setConnStatus(0);
     }
+
   }, [socket, chatMessages]);
 
   return (

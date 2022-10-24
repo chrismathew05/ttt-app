@@ -20,8 +20,9 @@ export const Chat = ({ socket, chatMessages }) => {
     return (
         <div className="row">
             <div className="column">
-                <b>Chat:</b>
+                <h3>Chat:</h3>
                 <div id="chat" className="chatBox">
+                    <b>Welcome! Click 'Post Message' below to get started...</b>
                     {chatMessages.map((chatMessage, idx) => (
                         <div key={`chatMessage-${idx}`}>
                             {`${chatMessage["senderId"]}: ${chatMessage["chatMessage"]}`}
