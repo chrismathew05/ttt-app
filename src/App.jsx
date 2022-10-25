@@ -19,6 +19,7 @@ const App = () => {
   const [p2Id, setP2Id] = useState("");
   const [p1Moves, setP1Moves] = useState([]);
   const [p2Moves, setP2Moves] = useState([]);
+  const [isPlayerTurn, setIsPlayerTurn] = useState(false);
 
   useEffect(() => {
     if (socket == null) {
@@ -33,19 +34,29 @@ const App = () => {
         console.log(data);
 
         setConnectionId(data["connectionId"]);
-        setP1Id(data["p1Id"]);
-        setP2Id(data["p2Id"]);
-        setP1Moves(data["p1Moves"]);
-        setP2Moves(data["p2Moves"]);
+        if ("p1Id" in data) {
+          setP1Id(data["p1Id"]);
+          setP2Id(data["p2Id"]);
+          setP1Moves(data["p1Moves"]);
+          setP2Moves(data["p2Moves"]);
 
-        const newMessage = data["newMessage"];
-        if (Object.keys(newMessage).length !== 0) {
-          let messages = chatMessages;
-          messages.push(newMessage);
-          setChatMessages(messages.slice(-20));
+          setIsPlayerTurn(false);
+          const numMoves = data["p1Moves"].length + data["p2Moves"].length;
+          if (data["connectionId"] === data["p1Id"]) {
+            if (numMoves % 2 === 0) setIsPlayerTurn(true);
+          } else if (data["connectionId"] === data["p2Id"]) {
+            if (numMoves % 2 !== 0) setIsPlayerTurn(true);
+          }
+
+          const newMessage = data["newMessage"];
+          if (newMessage && Object.keys(newMessage).length !== 0) {
+            let messages = chatMessages;
+            messages.push(newMessage);
+            setChatMessages(messages.slice(-20));
+          }
+
+          setConnStatus(2);
         }
-
-        setConnStatus(2);
       };
     }
 
@@ -57,10 +68,10 @@ const App = () => {
       <h4>Connection Status: {_CONN_STATUS[connStatus]}</h4>
 
       {connStatus === 2 ? <>
-        <Status socket={socket} connectionId={connectionId} connStatus={connStatus} p1Id={p1Id} p2Id={p2Id} />
+        <Status socket={socket} connectionId={connectionId} p1Id={p1Id} p2Id={p2Id} />
         <br />
 
-        <Grid socket={socket} p1Moves={p1Moves} p2Moves={p2Moves} />
+        <Grid socket={socket} isPlayerTurn={isPlayerTurn} p1Moves={p1Moves} p2Moves={p2Moves} />
         <br />
 
         <Chat socket={socket} chatMessages={chatMessages} />

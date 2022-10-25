@@ -1,6 +1,6 @@
 
 
-export const Status = ({ socket, connectionId, connStatus, p1Id, p2Id }) => {
+export const Status = ({ socket, connectionId, p1Id, p2Id }) => {
 
     return (
         <div style={{ textAlign: "center" }}>

@@ -11,10 +11,10 @@
     background-color: #ccc;
     font-size: 3.2em;
     font-weight: bold;
+    text-align: center;
 }
 
 .active {
-    text-align: center;
     cursor: pointer;
 }
 
