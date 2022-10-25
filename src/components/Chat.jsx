@@ -2,7 +2,11 @@ import { useEffect } from 'react';
 
 import "./Chat.css"
 
+/**
+ * Chat box used for real-time communication b/w players
+ */
 export const Chat = ({ socket, chatMessages }) => {
+    // auto-scrolls chat window to bottom of messages
     useEffect(() => {
         const el = document.getElementById('chat');
         if (el) {
@@ -10,6 +14,7 @@ export const Chat = ({ socket, chatMessages }) => {
         }
     }, [chatMessages]);
 
+    // triggers prompt for user to send message to websocket
     const sendChatMessage = () => {
         const message = prompt("Enter your message here.");
         if (message) {

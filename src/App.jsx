@@ -13,7 +13,7 @@ const App = () => {
   const [connStatus, setConnStatus] = useState(0); // 0 = Disconnected, 1 = Pending, 2 = Connected
   const [chatMessages, setChatMessages] = useState([]);
 
-  // tracks state of key backend game info
+  // tracks state of key game info passed from backend
   const [connectionId, setConnectionId] = useState("");
   const [p1Id, setP1Id] = useState("");
   const [p2Id, setP2Id] = useState("");
@@ -21,19 +21,23 @@ const App = () => {
   const [p2Moves, setP2Moves] = useState([]);
   const [isPlayerTurn, setIsPlayerTurn] = useState(false);
 
+  // runs initially to set hooks for websocket
   useEffect(() => {
     if (socket == null) {
       let webSocket = new WebSocket(process.env.REACT_APP_WEBSOCKET_URL);
       setSocket(webSocket)
       setConnStatus(1);
 
+      // WEBSOCKET connect -> send message to websocket api -> sends game info back to client
       webSocket.onopen = () => webSocket.send(JSON.stringify({ "action": "getInfo" }));
 
+      // WEBSOCKET receives messsage -> updates UI
       webSocket.onmessage = event => {
         const data = JSON.parse(event.data);
-        console.log(data);
 
         setConnectionId(data["connectionId"]);
+
+        // check for data availability and set info for UI update
         if ("p1Id" in data) {
           setP1Id(data["p1Id"]);
           setP2Id(data["p2Id"]);
