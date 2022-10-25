@@ -31,6 +31,10 @@ Real-time tic-tac-toe app with chat functionality.
    - A message is sent to all clients, notifying them of the win/tie.
 10. At any time, any user can click 'Post Message' which opens up a prompt and allows them to send a `sendMessage` route request with a message. This message is broadcast to all users and shows up in their chat window.
 
+# Demo
+
+![Demo](demo.gif)
+
 # Architecture
 
 - ReactJS front-end client hosted on Amplify
