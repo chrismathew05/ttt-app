@@ -13,8 +13,8 @@ Real-time tic-tac-toe app with chat functionality.
 - Players arriving after can only spectate the game.
 - When a game is won/tied, a message is sent to chat and the game is reset.
 - Everyone can communicate in real-time in the chat.
-- Backend must be in python/stateless/hosted on AWS Lambda
-- Frontend must use SPA framework and also hosted on AWS
+- Backend must be in python/stateless/hosted on AWS Lambda.
+- Frontend must use SPA framework and also hosted on AWS.
 
 # Process Flow
 
@@ -43,6 +43,6 @@ Real-time tic-tac-toe app with chat functionality.
 - The Lambda function transmits information back to the websocket which in turn broadcasts it to all clients.
 - The Lambda function also updates/reads from an AWS DynamoDB database for persistent data.
 - An IAM role (`ttt-role`) is granted permissions via an IAM policy (`ttt-policy`) under the least-privelege principle.
-- The Lambda functiona and Websocket API print logs to AWS CloudWatch.
+- The Lambda function and Websocket API print logs to AWS CloudWatch.
 
 ![Architecture Diagram](https://lucid.app/publicSegments/view/9460cbf5-a62b-4b6f-814b-3890796c57dc/image.png)
