@@ -7,6 +7,10 @@ Real-time tic-tac-toe app with chat functionality.
 - Link to Web App: [https://master.d40a59sddy1g1.amplifyapp.com/](https://master.d40a59sddy1g1.amplifyapp.com/)
 - Link to Lambda repo: [https://github.com/chrismathew05/ttt-lambda](https://github.com/chrismathew05/ttt-lambda)
 
+# Demo
+
+![Demo](demo.gif)
+
 # Requirements
 
 - Two players playing against each other in real-time. Only one game for the whole application at a time!
@@ -30,10 +34,6 @@ Real-time tic-tac-toe app with chat functionality.
    - The players `connType` is reset to "2", thereby making them spectators again. Anyone is now able to join the game as a player.
    - A message is sent to all clients, notifying them of the win/tie.
 10. At any time, any user can click 'Post Message' which opens up a prompt and allows them to send a `sendMessage` route request with a message. This message is broadcast to all users and shows up in their chat window.
-
-# Demo
-
-![Demo](demo.gif)
 
 # Architecture
 
